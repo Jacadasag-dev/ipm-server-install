@@ -122,6 +122,14 @@ services:
       DATABASE_URL: postgres://postgres:${DB_PASSWORD:-ipeople_pm_secure_password}@db:5432/ipeople_pm
       JWT_SECRET: ${JWT_SECRET}
       RUST_LOG: ${LOG_LEVEL:-ipeople_password_manager=debug,tower_http=debug,axum=debug}
+      # Email Configuration
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+      SMTP_FROM_EMAIL: ${SMTP_FROM_EMAIL:-noreply@example.com}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME:-iPeople Password Manager}
+      BASE_URL: ${BASE_URL:-http://localhost:3000}
       # SAML Configuration (optional)
       SAML_ENTITY_ID: ${SAML_ENTITY_ID:-https://passwordmanager.yourdomain.com}
       SAML_ACS_URL: ${SAML_ACS_URL:-https://passwordmanager.yourdomain.com/saml/acs}
@@ -162,6 +170,15 @@ APP_PORT=3000
 
 # Logging Level
 LOG_LEVEL=ipeople_password_manager=debug,tower_http=debug,axum=debug
+
+# Email Configuration (optional - for email verification)
+# SMTP_HOST=smtp.gmail.com
+# SMTP_PORT=587
+# SMTP_USERNAME=your-email@gmail.com
+# SMTP_PASSWORD=your-app-password
+# SMTP_FROM_EMAIL=noreply@yourdomain.com
+# SMTP_FROM_NAME=iPeople Password Manager
+# BASE_URL=http://localhost:3000
 
 # SAML Configuration (optional - configure for Azure AD integration)
 # SAML_ENTITY_ID=https://passwordmanager.yourdomain.com
