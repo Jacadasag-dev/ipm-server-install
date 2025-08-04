@@ -178,7 +178,14 @@ print_status "Creating management command..."
 sudo tee /usr/local/bin/ipeople-pm > /dev/null << 'EOF'
 #!/bin/bash
 
-INSTALL_DIR="$HOME/.local/share/ipeople-password-manager"
+# Get the actual user's home directory, even when running with sudo
+if [ -n "$SUDO_USER" ]; then
+    USER_HOME=$(getent passwd "$SUDO_USER" | cut -d: -f6)
+else
+    USER_HOME="$HOME"
+fi
+
+INSTALL_DIR="$USER_HOME/.local/share/ipeople-password-manager"
 cd "$INSTALL_DIR" || exit 1
 
 case "$1" in
@@ -254,7 +261,7 @@ case "$1" in
         fi
         ;;
     backup)
-        BACKUP_DIR="$HOME/ipeople-pm-backups"
+        BACKUP_DIR="$USER_HOME/ipeople-pm-backups"
         mkdir -p "$BACKUP_DIR"
         TIMESTAMP=$(date +%Y%m%d_%H%M%S)
         echo "Creating backup..."
