@@ -172,13 +172,15 @@ APP_PORT=3000
 LOG_LEVEL=ipeople_password_manager=debug,tower_http=debug,axum=debug
 
 # Email Configuration (optional - for email verification)
-# SMTP_HOST=smtp.gmail.com
-# SMTP_PORT=587
+# Uncomment and configure these lines to enable email sending
+# For Gmail, use an App Password: https://support.google.com/accounts/answer/185833
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
 # SMTP_USERNAME=your-email@gmail.com
 # SMTP_PASSWORD=your-app-password
-# SMTP_FROM_EMAIL=noreply@yourdomain.com
-# SMTP_FROM_NAME=iPeople Password Manager
-# BASE_URL=http://localhost:3000
+SMTP_FROM_EMAIL=noreply@example.com
+SMTP_FROM_NAME=iPeople Password Manager
+BASE_URL=http://localhost:3000
 
 # SAML Configuration (optional - configure for Azure AD integration)
 # SAML_ENTITY_ID=https://passwordmanager.yourdomain.com
