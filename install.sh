@@ -161,7 +161,7 @@ JWT_SECRET=$JWT_SECRET
 APP_PORT=3000
 
 # Logging Level
-LOG_LEVEL=ipeople_password_manager=info
+LOG_LEVEL=ipeople_password_manager=debug,tower_http=debug,axum=debug
 
 # SAML Configuration (optional - configure for Azure AD integration)
 # SAML_ENTITY_ID=https://passwordmanager.yourdomain.com
