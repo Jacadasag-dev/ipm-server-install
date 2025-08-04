@@ -121,7 +121,7 @@ services:
     environment:
       DATABASE_URL: postgres://postgres:${DB_PASSWORD:-ipeople_pm_secure_password}@db:5432/ipeople_pm
       JWT_SECRET: ${JWT_SECRET}
-      RUST_LOG: ${LOG_LEVEL:-ipeople_password_manager=info}
+      RUST_LOG: ${LOG_LEVEL:-ipeople_password_manager=debug,tower_http=debug,axum=debug}
       # SAML Configuration (optional)
       SAML_ENTITY_ID: ${SAML_ENTITY_ID:-https://passwordmanager.yourdomain.com}
       SAML_ACS_URL: ${SAML_ACS_URL:-https://passwordmanager.yourdomain.com/saml/acs}
