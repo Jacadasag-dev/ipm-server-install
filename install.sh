@@ -247,17 +247,58 @@ case "$1" in
         ;;
     update)
         echo "Updating iPeople Password Manager..."
+        
+        # Pull latest images
         if [ "$EUID" -eq 0 ]; then
             docker compose pull
-            docker compose up -d
         else
             if groups | grep -q docker; then
                 docker compose pull
-                docker compose up -d
             else
                 sudo docker compose pull
-                sudo docker compose up -d
             fi
+        fi
+        
+        # Restart containers with existing configuration
+        $0 restart
+        
+        echo "✅ Update complete!"
+        ;;
+    clean-update)
+        echo "⚠️  This will remove the database and start fresh!"
+        read -p "Are you sure? (yes/no): " confirm
+        if [ "$confirm" = "yes" ]; then
+            echo "Performing clean update..."
+            
+            # Stop and remove everything
+            $0 stop
+            if [ "$EUID" -eq 0 ]; then
+                docker compose down -v
+            else
+                if groups | grep -q docker; then
+                    docker compose down -v
+                else
+                    sudo docker compose down -v
+                fi
+            fi
+            
+            # Pull latest images
+            if [ "$EUID" -eq 0 ]; then
+                docker compose pull
+            else
+                if groups | grep -q docker; then
+                    docker compose pull
+                else
+                    sudo docker compose pull
+                fi
+            fi
+            
+            # Start fresh
+            $0 start
+            
+            echo "✅ Clean update complete!"
+        else
+            echo "Clean update cancelled"
         fi
         ;;
     backup)
@@ -316,6 +357,7 @@ case "$1" in
         echo "  status    - Show running status"
         echo "  logs      - View logs (optional: logs app/db)"
         echo "  update    - Update to latest version"
+        echo "  clean-update - Update with fresh database (removes data)"
         echo "  backup    - Create database backup"
         echo "  config    - Show configuration location"
         echo "  uninstall - Remove the password manager"
